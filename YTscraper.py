@@ -1,3 +1,5 @@
+import time
+
 # provides the main interface for controlling web browsers
 from selenium import webdriver
 
@@ -68,15 +70,25 @@ def scrape_yt():
         print('Error, interacting with search box')
         browser.quit()
 
+    time.sleep(5)
+
     # Another point to wait for specified XPATH before extracting
     try:
-        WebDriverWait(browser, 30).until(
-            EC.presence_of_all_elements_located((By.XPATH, "//a[@id='video-title']"))
+        WebDriverWait(browser, 15).until(
+            EC.presence_of_all_elements_located((By.XPATH,
+                                                 "//*[@id='text']"))
         )
     except TimeoutException:
         print("Timeout, waiting for video titles to load")
         browser.quit()
-    browser.quit()
+
+    yt_profiles = browser.find_elements(By.XPATH,
+                                        "//*[@id='text']")
+    if not yt_profiles:
+        print('No titles found')
+    else:
+        for profile in yt_profiles:
+            print(profile.text)
 
 
 scrape_yt()
