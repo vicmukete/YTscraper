@@ -40,8 +40,19 @@ def create_webdriver():
 
 
 # Get user search
-
 user_search = input("What would you like to search for: ")
+
+
+def run_again():
+    while True:
+        again = input("Would you like to enter another entry (y or n)? ").lower()
+        if again == 'y':
+            scrape_yt()
+        elif again == 'n':
+            print('Thank you for using YT scraper')
+            exit()
+        else:
+            print('Please enter an appropriate response.')
 
 
 #  Has the goal of scraping specified info from YT
@@ -52,7 +63,7 @@ def scrape_yt():
 
     # Wait for the specified XPATH to load before searching
     try:
-        WebDriverWait(browser, 30).until(
+        WebDriverWait(browser, 15).until(
             EC.element_to_be_clickable((By.NAME, "search_query"))
         )
         search_box = browser.find_element(By.NAME, "search_query")
@@ -73,31 +84,58 @@ def scrape_yt():
     time.sleep(5)
 
     # Another point to wait for specified XPATH before extracting
-    try:
-        WebDriverWait(browser, 10).until(
-            EC.presence_of_all_elements_located((By.XPATH,
-                                                 "//*[@id='text']"))
-        )
-    except TimeoutException:
-        print("Timeout, waiting for video titles to load")
-        browser.quit()
-
+    WebDriverWait(browser, 3).until(
+        EC.presence_of_all_elements_located((By.XPATH,
+                                             "//*[@id='text']"))
+    )
     # Find and click link to requested profile
     yt_profile = browser.find_element(By.XPATH,
                                       "//*[@id='main-link']")
+    # Clicks on first profile generated
     yt_profile.click()
     time.sleep(3)
 
+    # Must access the 'more' tab to access data
+    more_button = browser.find_element(By.CLASS_NAME,
+                                       'truncated-text-wiz__absolute-button')
+    more_button.click()
 
-'''
-    if not yt_profiles:
-        print('No titles found')
+    # Point ot wait till we can find the description
+    WebDriverWait(browser, 5).until(
+        EC.presence_of_all_elements_located((By.XPATH,
+                                             "//*[@id='description-container']"))
+    )
+    description = browser.find_element(By.XPATH,
+                                       "//*[@id='description-container']")
+
+    # acct_link = browser.find_element(By.XPATH, "//*[@class='ytd-about-channel-renderer']")
+    profile_data = browser.find_element(By.XPATH, "//*[@id='additional-info-container']")
+    # vid_count = browser.find_element(By.XPATH, "//*[@class='ytd-about-channel-renderer']")
+    # views = browser.find_element(By.XPATH, "//*[@class='ytd-about-channel-renderer']")
+    # date_joined = browser.find_element(By.XPATH, "//*[@class='ytd-about-channel-renderer']")
+    # og_country = browser.find_element(By.XPATH, "//*[@class='ytd-about-channel-renderer']")
+
+    # Split the collected data and remove the first two entries
+    profile_details_bf = profile_data.text.split('\n')
+    profile_details = profile_details_bf[2:]
+    # Remove the first two lines of collected data
+    if len(profile_details) >= 6:
+        print()
+        print('Description:\n' + description.text.replace('. ', '.\n'))
+        print()
+        print('Profile Details:')
+        print(f'Link: {profile_details[0]}')
+        print(f'Subscriber Count: {profile_details[1]}')
+        print(f'Video Count: {profile_details[2]}')
+        print(f'Views: {profile_details[3]}')
+        print(f'Date Joined: {profile_details[4]}')
+        print(f'Country: {profile_details[5]}')
     else:
-        for profile in yt_profiles:
-            print(profile.text.strip())
-'''
+        print('Profile data could not be extracted correctly.')
+
 
 scrape_yt()
+# run_again()
 
 '''
 Further Steps:
