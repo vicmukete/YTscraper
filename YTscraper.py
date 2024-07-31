@@ -74,7 +74,7 @@ def scrape_yt():
 
     # Another point to wait for specified XPATH before extracting
     try:
-        WebDriverWait(browser, 15).until(
+        WebDriverWait(browser, 10).until(
             EC.presence_of_all_elements_located((By.XPATH,
                                                  "//*[@id='text']"))
         )
@@ -82,14 +82,20 @@ def scrape_yt():
         print("Timeout, waiting for video titles to load")
         browser.quit()
 
-    yt_profiles = browser.find_elements(By.XPATH,
-                                        "//*[@id='text']")
+    # Find and click link to requested profile
+    yt_profile = browser.find_element(By.XPATH,
+                                      "//*[@id='main-link']")
+    yt_profile.click()
+    time.sleep(3)
+
+
+'''
     if not yt_profiles:
         print('No titles found')
     else:
         for profile in yt_profiles:
-            print(profile.text)
-
+            print(profile.text.strip())
+'''
 
 scrape_yt()
 
