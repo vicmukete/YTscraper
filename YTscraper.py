@@ -39,10 +39,6 @@ def create_webdriver():
     return webdriver.Chrome(service=service, options=driver_option)
 
 
-# Get user search
-user_search = input("What would you like to search for: ")
-
-
 def run_again():
     while True:
         again = input("Would you like to enter another entry (y or n)? ").lower()
@@ -58,6 +54,9 @@ def run_again():
 #  Has the goal of scraping specified info from YT
 # For now specifically title, eventually Views, video Publication, Creator, etc
 def scrape_yt():
+    # Get user search
+    user_search = input("What would you like to search for: ")
+    # Create wd and open yt
     browser = create_webdriver()
     browser.get('https://www.youtube.com/')
 
@@ -105,37 +104,49 @@ def scrape_yt():
         EC.presence_of_all_elements_located((By.XPATH,
                                              "//*[@id='description-container']"))
     )
-    description = browser.find_element(By.XPATH,
-                                       "//*[@id='description-container']")
+    profile_description = browser.find_element(By.XPATH,
+                                               "//*[@id='description-container']")
 
     # acct_link = browser.find_element(By.XPATH, "//*[@class='ytd-about-channel-renderer']")
-    profile_data = browser.find_element(By.XPATH, "//*[@id='additional-info-container']")
+    profile_data = browser.find_element(By.TAG_NAME, "tbody")
     # vid_count = browser.find_element(By.XPATH, "//*[@class='ytd-about-channel-renderer']")
     # views = browser.find_element(By.XPATH, "//*[@class='ytd-about-channel-renderer']")
     # date_joined = browser.find_element(By.XPATH, "//*[@class='ytd-about-channel-renderer']")
     # og_country = browser.find_element(By.XPATH, "//*[@class='ytd-about-channel-renderer']")
 
     # Split the collected data and remove the first two entries
-    profile_details_bf = profile_data.text.split('\n')
-    profile_details = profile_details_bf[2:]
+    # profile_details_bf = profile_data.text.split('\n')
     # Remove the first two lines of collected data
-    if len(profile_details) >= 6:
+    # profile_details = profile_details_bf[2:]
+
+    print()
+    print('Description:\n' + profile_description.text.replace('. ', '.\n'))
+    print()
+    split_data = profile_data.text.split('\n')
+    if len(split_data) > 6:
+        profile_details_after = split_data[1:]
+        print(profile_details_after)
+    else:
+        print(profile_data)
+    '''
+    if len(profile_data) >= 6:
         print()
         print('Description:\n' + description.text.replace('. ', '.\n'))
         print()
         print('Profile Details:')
-        print(f'Link: {profile_details[0]}')
-        print(f'Subscriber Count: {profile_details[1]}')
-        print(f'Video Count: {profile_details[2]}')
-        print(f'Views: {profile_details[3]}')
-        print(f'Date Joined: {profile_details[4]}')
-        print(f'Country: {profile_details[5]}')
+        print(f'Link: {profile_data[0]}')
+        print(f'Subscriber Count: {profile_data[1]}')
+        print(f'Video Count: {profile_data[2]}')
+        print(f'Views: {profile_data[3]}')
+        print(f'Date Joined: {profile_data[4]}')
+        print(f'Country: {profile_data[5]}')
     else:
         print('Profile data could not be extracted correctly.')
+    '''
 
 
 scrape_yt()
-# run_again()
+run_again()
 
 '''
 Further Steps:
