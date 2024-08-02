@@ -151,15 +151,15 @@ run_again()
 '''
 Further Steps:
 
-Click on first user profile link
-Access the 'more' link in the bio
-Scrape the data in channel details
-Store in excel/pandas
+Click on first user profile link (done)
+Access the 'more' link in the bio (done)
+Scrape the data in channel details (done)
+Store in excel/pandas/sql (done/ / )
 
 After scraping YT data once:
 
-Navigate to previous page
+Navigate to previous page (done)
 Select the next user profile link
 Repeat above process
-Repeat all processes for desired amount of times
+Repeat all processes for desired amount of times (done)
 '''
