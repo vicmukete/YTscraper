@@ -125,9 +125,13 @@ def scrape_yt():
     split_data = profile_data.text.split('\n')
     if len(split_data) > 6:
         profile_details_after = split_data[1:]
-        print(profile_details_after)
+        for profile in profile_details_after:
+            print(profile)
+            print()
     else:
         print(profile_data)
+        print()
+
     '''
     if len(profile_data) >= 6:
         print()
@@ -147,6 +151,7 @@ def scrape_yt():
 
 scrape_yt()
 run_again()
+
 
 '''
 Further Steps:
