@@ -44,9 +44,12 @@ def create_webdriver():
 def ask_db():
     db_answer = input("Would you like to add to / create your YT database (y or n)? ").lower()
     if db_answer == 'y':
-        create_csv()
-    else:
+        print()
+    elif db_answer == 'n':
+        print('Thank you for using YT scraper')
         exit()
+    else:
+        print('Please enter an appropriate response')
 
 
 def run_again():
@@ -62,7 +65,7 @@ def run_again():
 
 
 # Create a CSV file accessible in excel
-def create_csv(profile_details):
+def create_csv(profile_details_after):
     # check if the file exists already
     file_exists = os.path.isfile("YT Data.csv")
 
@@ -72,7 +75,7 @@ def create_csv(profile_details):
         write = csv.writer(csvfile)
         if not file_exists:
             write.writerow(["Link", "Subscriber Count", "Video Count", "Views", "Date Joined", "Country"])
-        write.writerow(profile_details)
+        write.writerow(profile_details_after)
 
 
 #  Has the goal of scraping specified info from YT
@@ -154,26 +157,11 @@ def scrape_yt():
         profile_details_after = split_data[1:]
         for profile in profile_details_after:
             print(profile)
+        create_csv(profile_details_after)
     else:
         print(profile_data)
         print()
     print()
-
-    '''
-    if len(profile_data) >= 6:
-        print()
-        print('Description:\n' + description.text.replace('. ', '.\n'))
-        print()
-        print('Profile Details:')
-        print(f'Link: {profile_data[0]}')
-        print(f'Subscriber Count: {profile_data[1]}')
-        print(f'Video Count: {profile_data[2]}')
-        print(f'Views: {profile_data[3]}')
-        print(f'Date Joined: {profile_data[4]}')
-        print(f'Country: {profile_data[5]}')
-    else:
-        print('Profile data could not be extracted correctly.')
-    '''
 
 
 scrape_yt()
