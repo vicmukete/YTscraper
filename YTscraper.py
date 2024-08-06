@@ -1,4 +1,6 @@
 import time
+import os
+import csv
 
 # provides the main interface for controlling web browsers
 from selenium import webdriver
@@ -49,6 +51,20 @@ def run_again():
             exit()
         else:
             print('Please enter an appropriate response.')
+
+
+# Create a CSV file accessible in excel
+def create_csv(profile_details):
+    # check if the file exists already
+    file_exists = os.path.isfile("YT Data.csv")
+
+    # if the file already exists then this will add new data
+    # if not a new csv file is created with headers for data
+    with open("YT Data.csv", 'a', newline="") as csvfile:
+        write = csv.writer(csvfile)
+        if not file_exists:
+            write.writerow(["Link", "Subscriber Count", "Video Count", "Views", "Date Joined", "Country"])
+        write.writerow(profile_details)
 
 
 #  Has the goal of scraping specified info from YT
@@ -118,19 +134,22 @@ def scrape_yt():
     # profile_details_bf = profile_data.text.split('\n')
     # Remove the first two lines of collected data
     # profile_details = profile_details_bf[2:]
-
+    data_title = ['Link: ', 'Sub Count: ', 'View Count', 'Date Joined', 'Country of Origin']
     print()
     print('Description:\n' + profile_description.text.replace('. ', '.\n'))
     print()
+    # Split the collected data
     split_data = profile_data.text.split('\n')
     if len(split_data) > 6:
+        # remove the first entry of the split data if there are over 6
+        # data entries
         profile_details_after = split_data[1:]
         for profile in profile_details_after:
             print(profile)
-            print()
     else:
         print(profile_data)
         print()
+    print()
 
     '''
     if len(profile_data) >= 6:
@@ -151,7 +170,6 @@ def scrape_yt():
 
 scrape_yt()
 run_again()
-
 
 '''
 Further Steps:
