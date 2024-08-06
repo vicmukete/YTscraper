@@ -41,6 +41,14 @@ def create_webdriver():
     return webdriver.Chrome(service=service, options=driver_option)
 
 
+def ask_db():
+    db_answer = input("Would you like to add to / create your YT database (y or n)? ").lower()
+    if db_answer == 'y':
+        create_csv()
+    else:
+        exit()
+
+
 def run_again():
     while True:
         again = input("Would you like to enter another entry (y or n)? ").lower()
