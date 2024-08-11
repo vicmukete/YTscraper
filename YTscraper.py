@@ -1,7 +1,7 @@
 import time
 import os
 import csv
-import pandas as pd
+# import pandas as pd
 
 # provides the main interface for controlling web browsers
 from selenium import webdriver
@@ -33,7 +33,7 @@ driver_option = webdriver.ChromeOptions()
 driver_option.add_argument('--incognito')
 
 # create a panda df that reads csv file
-df = pd.read_csv('YT Data.csv')
+# df = pd.read_csv('YT Data.csv')
 
 
 # allows for the creation of the webdriver to access
@@ -44,7 +44,7 @@ def create_webdriver():
     return webdriver.Chrome(service=service, options=driver_option)
 
 
-def ask_db():
+'''def ask_db():
     db_answer = input("Would you like to add to / create your YT database (y or n)? ").lower()
     if db_answer == 'y':
         print()
@@ -53,6 +53,7 @@ def ask_db():
         exit()
     else:
         print('Please enter an appropriate response')
+'''
 
 
 def run_again():
@@ -67,10 +68,23 @@ def run_again():
             print('Please enter an appropriate response.')
 
 
-# Create a CSV file accessible in excel
-def create_csv(profile_details_after):
+# Create a CSV file accessible in Excel
+# set pda=None so when it 'is not None' it is prepared to run
+# could have done the same to either parameter
+def create_csv(split_data, profile_data_after=None):
     # check if the file exists already
     file_exists = os.path.isfile("YT Data.csv")
+
+    # Prepare data for writing
+    if profile_data_after is not None:
+        data_write = profile_data_after
+    else:
+        data_write = split_data
+
+    # if the len of data is less than 6, N/A
+    # is filled in for the missing parts
+    if len(data_write) < 6:
+        data_write += ['N/A'] * (6 - len(data_write))
 
     # if the file already exists then this will add new data
     # if not a new csv file is created with headers for data
@@ -78,7 +92,7 @@ def create_csv(profile_details_after):
         write = csv.writer(csvfile)
         if not file_exists:
             write.writerow(["Link", "Subscriber Count", "Video Count", "Views", "Date Joined", "Country"])
-        write.writerow(profile_details_after)
+        write.writerow(data_write)
 
 
 #  Has the goal of scraping specified info from YT
@@ -127,6 +141,7 @@ def scrape_yt():
         time.sleep(2)
     else:
         print(f"{user_search} could not be loaded.")
+
     # Must access the 'more' tab to access data
     more_button = browser.find_element(By.CLASS_NAME,
                                        'truncated-text-wiz__absolute-button')
@@ -160,14 +175,13 @@ def scrape_yt():
     if len(split_data) > 6:
         # remove the first entry of the split data if there are over 6
         # data entries
-        profile_details_after = split_data[1:]
-        for profile in profile_details_after:
+        profile_data_after = split_data[1:]
+        for profile in profile_data_after:
             print(profile)
-        create_csv(profile_details_after)
+        create_csv(profile_data, profile_data_after)
     else:
         print(profile_data.text)
-        print()
-    print()
+        create_csv(split_data)
 
 
 scrape_yt()
@@ -187,6 +201,5 @@ Navigate to previous page (done)
 Select the next user profile link (done)
 Repeat above process (done)
 Repeat all processes for desired amount of times (done)
-Message so users know their desired profile can't be found
-All multiple data sets for one requested profile in the csv file
+Message so users know their desired profile can't be found (done)
 '''
