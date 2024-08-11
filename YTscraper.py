@@ -120,10 +120,13 @@ def scrape_yt():
     # Find and click link to requested profile
     yt_profile = browser.find_element(By.XPATH,
                                       "//*[@id='main-link']")
-    # Clicks on first profile generated
-    yt_profile.click()
-    time.sleep(2)
+    if yt_profile:
 
+        # Clicks on first profile generated
+        yt_profile.click()
+        time.sleep(2)
+    else:
+        print(f"{user_search} could not be loaded.")
     # Must access the 'more' tab to access data
     more_button = browser.find_element(By.CLASS_NAME,
                                        'truncated-text-wiz__absolute-button')
