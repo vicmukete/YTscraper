@@ -1,6 +1,7 @@
 import time
 import os
 import csv
+import pandas as pd
 
 # provides the main interface for controlling web browsers
 from selenium import webdriver
@@ -25,17 +26,19 @@ from selenium.webdriver.support import expected_conditions as EC
 # You can use the Keys class to perform keyboard actions such as pressing Enter, Tab, Arrow keys, etc.
 from selenium.webdriver.common.keys import Keys
 
-from webdriver_manager.chrome import ChromeDriverManager
-
 # File path of chromedriver
 chromedriver_path = r"C:\Users\muket\Desktop\chromedriver.exe"
 
 driver_option = webdriver.ChromeOptions()
 driver_option.add_argument('--incognito')
 
+# create a panda df that reads csv file
+df = pd.read_csv('YT Data.csv')
+
 
 # allows for the creation of the webdriver to access
 # website and open url
+
 def create_webdriver():
     service = Service(chromedriver_path)
     return webdriver.Chrome(service=service, options=driver_option)
@@ -107,7 +110,7 @@ def scrape_yt():
         print('Error, interacting with search box')
         browser.quit()
 
-    time.sleep(5)
+    time.sleep(2)
 
     # Another point to wait for specified XPATH before extracting
     WebDriverWait(browser, 3).until(
@@ -119,7 +122,7 @@ def scrape_yt():
                                       "//*[@id='main-link']")
     # Clicks on first profile generated
     yt_profile.click()
-    time.sleep(3)
+    time.sleep(2)
 
     # Must access the 'more' tab to access data
     more_button = browser.find_element(By.CLASS_NAME,
@@ -159,7 +162,7 @@ def scrape_yt():
             print(profile)
         create_csv(profile_details_after)
     else:
-        print(profile_data)
+        print(profile_data.text)
         print()
     print()
 
@@ -178,7 +181,9 @@ Store in excel/pandas/sql (done/ / )
 After scraping YT data once:
 
 Navigate to previous page (done)
-Select the next user profile link
-Repeat above process
+Select the next user profile link (done)
+Repeat above process (done)
 Repeat all processes for desired amount of times (done)
+Message so users know their desired profile can't be found
+All multiple data sets for one requested profile in the csv file
 '''
