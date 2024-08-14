@@ -166,7 +166,6 @@ def scrape_yt():
     # profile_details_bf = profile_data.text.split('\n')
     # Remove the first two lines of collected data
     # profile_details = profile_details_bf[2:]
-    data_title = ['Link: ', 'Sub Count: ', 'View Count', 'Date Joined', 'Country of Origin']
     print()
     print('Description:\n' + profile_description.text.replace('. ', '.\n'))
     print()
@@ -177,11 +176,11 @@ def scrape_yt():
         # data entries
         profile_data_after = split_data[1:]
         for profile in profile_data_after:
-            print(profile)
+            print(profile.__str__())
             print()
         create_csv(profile_data, profile_data_after)
     else:
-        print(profile_data.text)
+        print(profile_data.text.__str__())
         print()
         create_csv(split_data)
 
