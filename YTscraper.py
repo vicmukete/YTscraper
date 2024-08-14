@@ -33,7 +33,7 @@ driver_option = webdriver.ChromeOptions()
 driver_option.add_argument('--incognito')
 
 # create a panda df that reads csv file
-# df = pd.read_csv('YT Data.csv')
+# df = pd.read_csv('YTdata.csv')
 
 
 # allows for the creation of the webdriver to access
@@ -73,7 +73,7 @@ def run_again():
 # could have done the same to either parameter
 def create_csv(split_data, profile_data_after=None):
     # check if the file exists already
-    file_exists = os.path.isfile("YT Data.csv")
+    file_exists = os.path.isfile("YTdata.csv")
 
     # Prepare data for writing
     if profile_data_after is not None:
@@ -88,7 +88,7 @@ def create_csv(split_data, profile_data_after=None):
 
     # if the file already exists then this will add new data
     # if not a new csv file is created with headers for data
-    with open("YT Data.csv", 'a', newline="") as csvfile:
+    with open("YTdata.csv", 'a', newline="") as csvfile:
         write = csv.writer(csvfile)
         if not file_exists:
             write.writerow(["Link", "Subscriber Count", "Video Count", "Views", "Date Joined", "Country"])
@@ -178,9 +178,11 @@ def scrape_yt():
         profile_data_after = split_data[1:]
         for profile in profile_data_after:
             print(profile)
+            print()
         create_csv(profile_data, profile_data_after)
     else:
         print(profile_data.text)
+        print()
         create_csv(split_data)
 
 
@@ -194,6 +196,8 @@ Click on first user profile link (done)
 Access the 'more' link in the bio (done)
 Scrape the data in channel details (done)
 Store in excel/pandas/sql (done/ / )
+Remove the word 'views' and turn that column into integers()
+Convert the m's (millions: x,000,000) and k's (thousands: x,000) in sub count into integers()
 
 After scraping YT data once:
 
