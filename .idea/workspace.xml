@@ -5,10 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="82eee079-8418-48d6-a38d-11e6b8af2789" name="Changes" comment="- Found the correct path&#10;- Prints all elements in specified path&#10;- Need to add the click function to access the yt profile">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/YTdata.csv" beforeDir="false" afterPath="$PROJECT_DIR$/YTdata.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/YTscraper.py" beforeDir="false" afterPath="$PROJECT_DIR$/YTscraper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/practice_pandas.py" beforeDir="false" afterPath="$PROJECT_DIR$/practice_pandas.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
