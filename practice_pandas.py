@@ -3,31 +3,41 @@ import pandas as pd
 df = pd.read_csv('YTdata.csv')
 
 # Most popular and basic methods to explore data
-'''print(df.info())
-print(df.head())
-print(df.tail())
-print(df.describe())'''
+'''(df.info())
+(df.head())
+(df.tail())
+(df.describe())'''
 
-# Filtering Data
-# Create a condition to filter for data
+vid_count = df['Video Count'].astype(str)
 
-'''vid_count0 = df['Video Count']
-print(vid_count0.str.replace('videos', ''))
-print()
-print()'''
+def convert_vid():
+    for vid in vid_count:
+        vid0 = vid.replace('videos', '').strip()
+        print(vid0)
 
-sub_count0 = df['Subscriber Count']
-sub_count1 = sub_count0.str.replace('subscribers', '')
-sub_count3 = sub_count1.str.replace('M', ',000,000').str.replace('K', ',000')
-print(sub_count3)
-print()
-print()
+
+convert_vid()
+# ------------
+sub_count = df['Subscriber Count'].astype(str)
+
+
+# Create a function with two parts for the two sets of data
+def convert_subs():
+    for data in sub_count:
+        data0 = data.replace('subscribers', '').strip()
+        if 'K' in data0:
+            convert_k = data0.replace('K', '')
+            print(convert_k)
+        elif 'M' in data0:
+            convert_m = data0.replace('M', '')
+            print(convert_m)
+        else:
+            exit()
+
+
+convert_subs()
 
 '''date_joined0 = df['Date Joined']
 print(date_joined0.str.replace('Joined', ''))
 print()
 print()'''
-
-
-
-

@@ -1,7 +1,7 @@
 import time
 import os
 import csv
-# import pandas as pd
+import pandas as pd
 
 # provides the main interface for controlling web browsers
 from selenium import webdriver
@@ -12,7 +12,7 @@ from selenium.webdriver.chrome.service import Service
 
 # an exception thrown when a command does not complete within a specified time
 from selenium.common.exceptions import TimeoutException, ElementNotInteractableException, \
-    ElementClickInterceptedException
+    ElementClickInterceptedException, NoSuchElementException
 
 # Provides predefined methods to locate elements on a webpage
 from selenium.webdriver.common.by import By
@@ -33,7 +33,7 @@ driver_option = webdriver.ChromeOptions()
 driver_option.add_argument('--incognito')
 
 # create a panda df that reads csv file
-# df = pd.read_csv('YTdata.csv')
+df = pd.read_csv('YTdata.csv')
 
 
 # allows for the creation of the webdriver to access
@@ -106,7 +106,7 @@ def scrape_yt():
 
     # Wait for the specified XPATH to load before searching
     try:
-        WebDriverWait(browser, 15).until(
+        WebDriverWait(browser, 3).until(
             EC.element_to_be_clickable((By.NAME, "search_query"))
         )
         search_box = browser.find_element(By.NAME, "search_query")
@@ -126,21 +126,22 @@ def scrape_yt():
 
     time.sleep(2)
 
-    # Another point to wait for specified XPATH before extracting
-    WebDriverWait(browser, 3).until(
-        EC.presence_of_all_elements_located((By.XPATH,
-                                             "//*[@id='text']"))
-    )
-    # Find and click link to requested profile
-    yt_profile = browser.find_element(By.XPATH,
-                                      "//*[@id='main-link']")
-    if yt_profile:
-
-        # Clicks on first profile generated
+    try:
+        # Another point to wait for specified XPATH before extracting
+        WebDriverWait(browser, 3).until(
+            EC.presence_of_all_elements_located((By.XPATH,
+                                                 "//*[@id='text']"))
+        )
+        # Find and click link to requested profile
+        yt_profile = browser.find_element(By.XPATH,
+                                          "//*[@id='main-link']")
         yt_profile.click()
         time.sleep(2)
-    else:
+    except NoSuchElementException:
         print(f"{user_search} could not be loaded.")
+        print()
+        browser.quit()
+        run_again()
 
     # Must access the 'more' tab to access data
     more_button = browser.find_element(By.CLASS_NAME,
@@ -148,24 +149,18 @@ def scrape_yt():
     more_button.click()
 
     # Point ot wait till we can find the description
-    WebDriverWait(browser, 5).until(
+    WebDriverWait(browser, 3).until(
         EC.presence_of_all_elements_located((By.XPATH,
                                              "//*[@id='description-container']"))
     )
     profile_description = browser.find_element(By.XPATH,
                                                "//*[@id='description-container']")
 
-    # acct_link = browser.find_element(By.XPATH, "//*[@class='ytd-about-channel-renderer']")
-    profile_data = browser.find_element(By.TAG_NAME, "tbody")
-    # vid_count = browser.find_element(By.XPATH, "//*[@class='ytd-about-channel-renderer']")
-    # views = browser.find_element(By.XPATH, "//*[@class='ytd-about-channel-renderer']")
-    # date_joined = browser.find_element(By.XPATH, "//*[@class='ytd-about-channel-renderer']")
-    # og_country = browser.find_element(By.XPATH, "//*[@class='ytd-about-channel-renderer']")
+    WebDriverWait(browser, 3).until(
+        EC.presence_of_all_elements_located((By.TAG_NAME, "tbody")))
 
-    # Split the collected data and remove the first two entries
-    # profile_details_bf = profile_data.text.split('\n')
-    # Remove the first two lines of collected data
-    # profile_details = profile_details_bf[2:]
+    profile_data = browser.find_element(By.TAG_NAME, "tbody")
+
     print()
     print('Description:\n' + profile_description.text.replace('. ', '.\n'))
     print()
@@ -176,13 +171,36 @@ def scrape_yt():
         # data entries
         profile_data_after = split_data[1:]
         for profile in profile_data_after:
-            print(profile.__str__())
+            print(profile)
             print()
-        create_csv(profile_data, profile_data_after)
+        create_csv(split_data, profile_data_after)
     else:
-        print(profile_data.text.__str__())
+        print(profile_data.text)
         print()
         create_csv(split_data)
+
+
+# Datasets to change
+sub_count = df['Subscriber Count'].astype(str)
+vid_count = df['Video Count'].astype(str)
+view_count = df['Views'].astype(str)
+date_joined = df['Date Joined'].astype(str)
+
+
+# Dataset conversions
+
+# Video
+def convert_vid():
+    for vid in vid_count:
+        vid0 = vid.replace('videos', '').strip()
+        int(vid0)  # needs work
+
+
+# Views
+def convert_views():
+    for view in view_count:
+        view0 = view.replace('views', '').strip()
+        int(view0)  # needs work
 
 
 scrape_yt()
