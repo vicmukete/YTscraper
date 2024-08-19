@@ -3,10 +3,10 @@ import pandas as pd
 df = pd.read_csv('YTdata.csv')
 
 # Most popular and basic methods to explore data
-'''(df.info())
+(df.info())
 (df.head())
 (df.tail())
-(df.describe())'''
+(df.describe())
 
 vid_count = df['Video Count'].astype(str)
 
