@@ -3,6 +3,7 @@ import os
 import csv
 import pandas as pd
 
+
 # provides the main interface for controlling web browsers
 from selenium import webdriver
 
@@ -172,7 +173,6 @@ def scrape_yt():
         profile_data_after = split_data[1:]
         for profile in profile_data_after:
             print(profile)
-            print()
         create_csv(split_data, profile_data_after)
     else:
         print(profile_data.text)
@@ -190,7 +190,7 @@ date_joined = df['Date Joined'].astype(str)
 # Dataset conversions
 
 # Video
-def convert_vid():
+'''def convert_vid():
     for vid in vid_count:
         vid0 = vid.replace('videos', '').strip()
         int(vid0)  # needs work
@@ -200,7 +200,7 @@ def convert_vid():
 def convert_views():
     for view in view_count:
         view0 = view.replace('views', '').strip()
-        int(view0)  # needs work
+        int(view0)  # needs work'''
 
 
 scrape_yt()

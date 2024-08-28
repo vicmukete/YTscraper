@@ -5,12 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="82eee079-8418-48d6-a38d-11e6b8af2789" name="Changes" comment="- Found the correct path&#10;- Prints all elements in specified path&#10;- Need to add the click function to access the yt profile">
+      <change afterPath="$PROJECT_DIR$/__init__/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/__init__/pandas functions.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/YTdata.csv" beforeDir="false" afterPath="$PROJECT_DIR$/YTdata.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/YTscraper.py" beforeDir="false" afterPath="$PROJECT_DIR$/YTscraper.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/practice_pandas.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -23,14 +35,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python tests.Doctests in readers.executor&quot;: &quot;Run&quot;,
-    &quot;Python.YTscraper.executor&quot;: &quot;Run&quot;,
-    &quot;Python.practice_pandas.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python tests.Doctests in readers.executor": "Run",
+    "Python.YTscraper.executor": "Run",
+    "Python.pandas functions.executor": "Run",
+    "Python.practice_pandas.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true"
   }
-}</component>
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\muket\Desktop\Real Projects\YTscraper\__init__" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
