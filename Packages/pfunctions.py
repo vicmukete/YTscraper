@@ -8,30 +8,33 @@ df = pd.read_csv('../YTdata.csv')
 (df.tail())
 (df.describe())'''
 
-sub_count = df['Subscriber Count'].astype(str)
-vid_count = df['Video Count'].astype(str)
-view_count = df['Views'].astype(str)
-date_joined = df['Date Joined'].astype(str)
+sub_count0 = df['Subscriber Count'].astype(str)
+vid_count0 = df['Video Count'].astype(str)
+view_count0 = df['Views'].astype(str)
+date_joined0 = df['Date Joined'].astype(str)
 
 
 # Video Count
 def convert_vid():
+    vid_count = df['Video Count'].astype(str)
     for vid in vid_count:
-        vid0 = vid.replace('videos', '').strip()
-        int(vid0)
+        vid = int(vid.replace('videos', '').replace(',', '').strip())
+        print(vid)
 
 
 # View Count      
 def convert_views():
+    view_count = df['Views'].astype(str)
     for view in view_count:
-        view0 = view.replace('views', '').strip()
-        int(view0)  # needs work
+        view = int(view.replace('views', '').replace(',', '').strip())
+        print(view)
 
 
 def convert_date():
+    date_joined = df['Date Joined'].astype(str)
     for date in date_joined:
-        date = date.replace('joined', '').strip()
-        return date
+        date = date.replace('Joined', '').strip()
+        print(date)
 
 
 # convert_vid()
@@ -44,23 +47,25 @@ def convert_subs():
     for data in sub_count:
         data = (data.replace('subscribers', '').strip())
         if 'K' in data:
-            convert_k = data.replace('K', ',000')
-            # print(convert_k)
+            convert_k = int(data.replace('K', ',000').replace(',', '').replace('.', ''))
+            print(convert_k)
         elif 'M' in data:
             convert_m = data.replace('M', ',000,000')
             replaced_data_list = convert_m.replace('.', '').replace(',', '')
             if '.' in convert_m:
                 new_convert = int(replaced_data_list[0:7])
                 print(new_convert)
-            print(convert_m)
-            print()
-            # print(len(replaced_data_list))
-            # print(len(convert_m))
         else:
             continue
 
 
 convert_subs()
+print()
+convert_vid()
+print()
+convert_views()
+print()
+convert_date()
 
 # write if statement in M's for when there's
 # a period in the first 2 ch's of string

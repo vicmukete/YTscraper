@@ -2,8 +2,7 @@ import time
 import os
 import csv
 import pandas as pd
-from pfunctions import convert_subs
-
+import pfunctions
 # provides the main interface for controlling web browsers
 from selenium import webdriver
 
@@ -189,18 +188,7 @@ date_joined = df['Date Joined'].astype(str)
 
 # Dataset conversions
 
-# Video
-'''def convert_vid():
-    for vid in vid_count:
-        vid0 = vid.replace('videos', '').strip()
-        int(vid0)  # needs work
 
-
-# Views
-def convert_views():
-    for view in view_count:
-        view0 = view.replace('views', '').strip()
-        int(view0)  # needs work'''
 
 
 scrape_yt()
