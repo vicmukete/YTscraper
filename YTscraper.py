@@ -223,4 +223,5 @@ Select the next user profile link (done)
 Repeat above process (done)
 Repeat all processes for desired amount of times (done)
 Message so users know their desired profile can't be found (done)
+Fix the issue of extra data in channel details portion (mkiceandfire)
 '''
