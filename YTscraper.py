@@ -2,7 +2,7 @@ import time
 import os
 import csv
 import pandas as pd
-
+from pfunctions import convert_subs
 
 # provides the main interface for controlling web browsers
 from selenium import webdriver
