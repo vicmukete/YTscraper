@@ -1,6 +1,6 @@
 import pandas as pd
 
-df = pd.read_csv('../YTdata.csv')
+df = pd.read_csv('YTdata.csv')
 
 # Most popular and basic methods to explore data
 '''(df.info())
@@ -55,18 +55,21 @@ def convert_subs():
             if '.' in convert_m:
                 new_convert = int(replaced_data_list[0:7])
                 print(new_convert)
+                # len_new_convert = len(replaced_data_list)
+                # print(len_new_convert, 'digits')
         else:
             continue
 
 
+print('(convert_subs)')
 convert_subs()
 print()
+print('(convert_vid)')
 convert_vid()
 print()
+print('(convert_views)')
 convert_views()
 print()
+print('(convert_date)')
 convert_date()
 
-# write if statement in M's for when there's
-# a period in the first 2 ch's of string
-# if there is switch 3

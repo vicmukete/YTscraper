@@ -190,10 +190,7 @@ date_joined = df['Date Joined'].astype(str)
 
 
 scrape_yt()
-convert_date()
-convert_views()
-convert_vid()
-convert_subs()
+
 run_again()
 
 '''
