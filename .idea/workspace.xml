@@ -5,9 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="82eee079-8418-48d6-a38d-11e6b8af2789" name="Changes" comment="- Found the correct path&#10;- Prints all elements in specified path&#10;- Need to add the click function to access the yt profile">
+      <change afterPath="$PROJECT_DIR$/Packages/Notes" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Packages/pfunctions.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Packages/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pfunctions.py" beforeDir="false" afterPath="$PROJECT_DIR$/pfunctions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/YTdata.csv" beforeDir="false" afterPath="$PROJECT_DIR$/YTdata.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/YTscraper.py" beforeDir="false" afterPath="$PROJECT_DIR$/YTscraper.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pfunctions.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,11 +49,17 @@
     "Python.pandas functions.executor": "Run",
     "Python.pfunctions.executor": "Run",
     "Python.practice_pandas.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true"
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "C:/Users/muket/Desktop/Real Projects/YTscraper",
+    "settings.editor.selected.configurable": "preferences.lookFeel"
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\muket\Desktop\Real Projects\YTscraper" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\muket\Desktop\Real Projects\YTscraper\Packages" />
       <recent name="C:\Users\muket\Desktop\Real Projects\YTscraper\Conversions" />
       <recent name="C:\Users\muket\Desktop\Real Projects\YTscraper\__init__" />
     </key>

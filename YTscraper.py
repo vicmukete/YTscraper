@@ -2,7 +2,7 @@ import time
 import os
 import csv
 import pandas as pd
-from pfunctions import convert_vid, convert_views, convert_date, convert_subs
+# from pfunctions import convert_vid, convert_views, convert_date, convert_subs
 
 # provides the main interface for controlling web browsers
 from selenium import webdriver
@@ -57,6 +57,7 @@ def create_webdriver():
 '''
 
 
+# gives the option for user to run the script again
 def run_again():
     while True:
         again = input("Would you like to enter another entry (y or n)? ").lower()
@@ -139,7 +140,7 @@ def scrape_yt():
         yt_profile.click()
         time.sleep(2)
     except NoSuchElementException:
-        print(f"{user_search} could not be loaded.")
+        print(f"{user_search} could not be found.")
         print()
         browser.quit()
         run_again()
@@ -176,6 +177,7 @@ def scrape_yt():
         create_csv(split_data, profile_data_after)
     else:
         print(profile_data.text)
+        print('-' * 10)
         print()
         create_csv(split_data)
 
@@ -190,25 +192,4 @@ date_joined = df['Date Joined'].astype(str)
 
 
 scrape_yt()
-
 run_again()
-
-'''
-Further Steps:
-
-Click on first user profile link (done)
-Access the 'more' link in the bio (done)
-Scrape the data in channel details (done)
-Store in excel/pandas/sql (done/ / )
-Remove the word 'views' and turn that column into integers()
-Convert the m's (millions: x,000,000) and k's (thousands: x,000) in sub count into integers()
-
-After scraping YT data once:
-
-Navigate to previous page (done)
-Select the next user profile link (done)
-Repeat above process (done)
-Repeat all processes for desired amount of times (done)
-Message so users know their desired profile can't be found (done)
-Fix the issue of extra data in channel details portion (mkiceandfire)
-'''
