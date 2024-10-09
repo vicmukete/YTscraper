@@ -2,7 +2,7 @@ import time
 import os
 import csv
 import pandas as pd
-# from pfunctions import convert_vid, convert_views, convert_date, convert_subs
+# import platform
 
 # provides the main interface for controlling web browsers
 from selenium import webdriver
@@ -27,8 +27,10 @@ from selenium.webdriver.support import expected_conditions as EC
 # You can use the Keys class to perform keyboard actions such as pressing Enter, Tab, Arrow keys, etc.
 from selenium.webdriver.common.keys import Keys
 
+# from selenium.webdriver import ActionChains
+
 # File path of chromedriver
-chromedriver_path = r"C:\Users\muket\Desktop\chromedriver.exe"
+chromedriver_path = r"C:\Users\muket\Desktop\Chrome Drivers\chromedriver.exe"
 
 driver_option = webdriver.ChromeOptions()
 driver_option.add_argument('--incognito')
@@ -40,33 +42,53 @@ df = pd.read_csv('YTdata.csv')
 # allows for the creation of the webdriver to access
 # website and open url
 
-def create_webdriver():
+def create_wd():
     service = Service(chromedriver_path)
     return webdriver.Chrome(service=service, options=driver_option)
 
 
-'''def ask_db():
-    db_answer = input("Would you like to add to / create your YT database (y or n)? ").lower()
-    if db_answer == 'y':
-        print()
-    elif db_answer == 'n':
-        print('Thank you for using YT scraper')
-        exit()
-    else:
-        print('Please enter an appropriate response')
-'''
+def downloadChromeDriver():
+    """while True:
+        if platform.uname().system == 'Windows':
+            browser = create_wd()
+            browser.get('https://googlechromelabs.github.io/chrome-for-testing/#stable')
+            WebDriverWait(browser, 3).until(
+                EC.presence_of_all_elements_located((By.XPATH, '//*[@id="stable"]'))
+            )
+            chrome_link = browser.find_element(By.XPATH, '//*[@id="stable"]')
+            chrome_link.doubleClick()
+            browser.get('https://www.google.com/')"""
+
+
+def ask_db():
+    while True:
+        db_answer = input("Would you like to add to / create your YT database (y or n)? ").lower()
+        try:
+            if db_answer == 'y':
+                print()
+                # run all the functions in the conversion class
+            elif db_answer == 'n':
+                scrapeTwo = input(print('Would you like to scrape again?')).lower()
+                if scrapeTwo == 'y':
+                    scrape_yt()
+                elif scrapeTwo == 'n':
+                    print('Thank you for using YT scraper')
+                    exit()
+        except SyntaxError:
+            print('Please enter an appropriate response')
 
 
 # gives the option for user to run the script again
 def run_again():
     while True:
         again = input("Would you like to enter another entry (y or n)? ").lower()
-        if again == 'y':
-            scrape_yt()
-        elif again == 'n':
-            print('Thank you for using YT scraper')
-            exit()
-        else:
+        try:
+            if again == 'y':
+                scrape_yt()
+            elif again == 'n':
+                print('Thank you for using YT scraper')
+                exit()
+        except SyntaxError:
             print('Please enter an appropriate response.')
 
 
@@ -103,7 +125,7 @@ def scrape_yt():
     # Get user search
     user_search = input("What would you like to search for: ")
     # Create wd and open yt
-    browser = create_webdriver()
+    browser = create_wd()
     browser.get('https://www.youtube.com/')
 
     # Wait for the specified XPATH to load before searching
@@ -190,6 +212,7 @@ date_joined = df['Date Joined'].astype(str)
 
 # Dataset conversions
 
-
-scrape_yt()
-run_again()
+# downloadChromeDriver()
+# scrape_yt()
+# run_again()
+# ask_db()

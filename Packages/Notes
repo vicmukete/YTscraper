@@ -13,7 +13,16 @@ Repeat all processes for desired amount of times (done)
 Message so users know their desired profile can't be found (done)
 Fix the issue of extra data in channel details portion (mkiceandfire)
 Write function that asks users if they want the data cleaned, if y then-
--run the conversion methods
-Decide if the data is saved in a new file (YTdata_Cleaned) or in the same one (new/ )
+    -run the conversion methods
+Decide if the data is saved in a new file (YTdata_Cleaned) or in the same one (new/done)
 Edit the conditional at the end of the scrape_yt function so that the sign in with email is not scraped
     - if email in link(df) ---> clear that cell
+Solve the issue of N/A not being entered when data is missing [Country] ()
+Sort the dataframe['Date'] dataset (convert dates to into numerical form (10_3_24)()
+    - Python recognizes the underscores and erases them (supposedly)
+Code doesn't handle yt channels with over a 100,000,000 subs. Optimize. ()
+Handle the expired driver issue. Script should download an updated chromedriver based on user os + type (32 or 64)()
+
+
+
+//*[@id="stable"]/div/table/tbody/tr[5]/td[1]/code/text()
