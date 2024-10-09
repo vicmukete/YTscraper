@@ -4,15 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="82eee079-8418-48d6-a38d-11e6b8af2789" name="Changes" comment="- Found the correct path&#10;- Prints all elements in specified path&#10;- Need to add the click function to access the yt profile">
-      <change afterPath="$PROJECT_DIR$/.idea/material_theme_project_new.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Packages/Notes" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/Notes" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Packages/YTdata_Cleaned" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/YTdata_Cleaned.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Packages/pfunctions.py" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/pfunctions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/YTdata.csv" beforeDir="false" afterPath="$PROJECT_DIR$/YTdata.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/YTscraper.py" beforeDir="false" afterPath="$PROJECT_DIR$/YTscraper.py" afterDir="false" />
-    </list>
+    <list default="true" id="82eee079-8418-48d6-a38d-11e6b8af2789" name="Changes" comment="- Found the correct path&#10;- Prints all elements in specified path&#10;- Need to add the click function to access the yt profile" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -42,28 +34,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "Python tests.Doctests in readers.executor": "Run",
-    "Python.YTscraper.executor": "Run",
-    "Python.p_functions.executor": "Run",
-    "Python.pandas functions.executor": "Run",
-    "Python.pfunctions.executor": "Run",
-    "Python.practice_pandas.executor": "Run",
-    "Python.scratch_49.executor": "Run",
-    "Python.scratch_51.executor": "Run",
-    "Python.scratch_52.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "C:/Users/muket/Desktop/Projects/Work in Progress",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;Python tests.Doctests in readers.executor&quot;: &quot;Run&quot;,
+    &quot;Python.YTscraper.executor&quot;: &quot;Run&quot;,
+    &quot;Python.p_functions.executor&quot;: &quot;Run&quot;,
+    &quot;Python.pandas functions.executor&quot;: &quot;Run&quot;,
+    &quot;Python.pfunctions.executor&quot;: &quot;Run&quot;,
+    &quot;Python.practice_pandas.executor&quot;: &quot;Run&quot;,
+    &quot;Python.scratch_49.executor&quot;: &quot;Run&quot;,
+    &quot;Python.scratch_51.executor&quot;: &quot;Run&quot;,
+    &quot;Python.scratch_52.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/muket/Desktop/Projects/Work in Progress&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   },
-  "keyToStringList": {
-    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
-      "Python"
+  &quot;keyToStringList&quot;: {
+    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File&quot;: [
+      &quot;Python&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\muket\Desktop\Projects\Work in Progress" />
