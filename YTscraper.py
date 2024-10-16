@@ -2,7 +2,8 @@ import time
 import os
 import csv
 import pandas as pd
-from Packages import Conversions
+import platform
+# from Packages import Conversions
 
 
 # import platform
@@ -32,7 +33,11 @@ from selenium.webdriver.common.keys import Keys
 
 # from selenium.webdriver import ActionChains
 
-# File path of chromedriver
+print(platform.uname())
+current_d = os.getcwd().split("\\")
+current_user_d = current_d[2]
+
+# path where the file should be downloaded
 chromedriver_path = r"C:\Users\muket\Desktop\Chrome Drivers\chromedriver.exe"
 
 driver_option = webdriver.ChromeOptions()
@@ -215,7 +220,7 @@ date_joined = df['Date Joined'].astype(str)
 
 # Dataset conversions
 
-# downloadChromeDriver()
-# scrape_yt()
-# run_again()
-# ask_db()
+downloadChromeDriver()
+scrape_yt()
+run_again()
+ask_db()

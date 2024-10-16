@@ -1,6 +1,9 @@
 import platform
 import time
 import os
+import requests
+import pyuac
+
 
 # provides the main interface for controlling web browsers
 from selenium import webdriver
@@ -14,8 +17,15 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 # Used to wait for certain conditions to be met bf proceeding
 from selenium.webdriver.support.ui import WebDriverWait
+
 # from selenium.webdriver.common.keys import Keys
 
+print(platform.uname())
+current_d = os.getcwd().split("\\")
+current_user_d = current_d[2]
+
+# path where the file should be downloaded
+download_path = fr"C:\Users\{current_user_d}\Documents\New Drivers\chromedriver.exe"
 
 # File path of chromedriver
 chromedriver_path = r"C:\Users\muket\Desktop\Chrome Drivers\chromedriver.exe"
@@ -23,22 +33,24 @@ chromedriver_path = r"C:\Users\muket\Desktop\Chrome Drivers\chromedriver.exe"
 driver_option = webdriver.ChromeOptions()
 driver_option.add_argument('--incognito')
 
-print(platform.uname())
-current_d = os.getcwd().split("\\")
-current_user_d = current_d[2]
 
 
-def create_new_file():
+def create_new_folder(url):
     folder_name = 'New Drivers'
-    folder_path = fr'C:/Users/{current_user_d}/Desktop'
-    full_path = os.path.join(folder_path, folder_name)
+    folder_path = fr'C:/Users/{current_user_d}/Documents'
+    full_path = os.path.join(folder_path, folder_name).replace('\\', '/')
+    # Create the new folder if it doesn't already exist
     os.makedirs(full_path, exist_ok=True)
+    response = requests.get(url)
+    # check if the request was successful
+    print(full_path)
+    if response.status_code == 200:
+        with open(full_path, mode='wb') as file:
+            file.write(response.content)
+        print(f'file saved successfully to {full_path}')
+    else:
+        print(f'Failed to download file. Status code {response.status_code}')
 
-
-# def download_to_path():
-
-
-# C:\Users\muket\Desktop\chrome drivers
 
 def extract_links(chromedrivers):
     links = [item for item in chromedrivers if item.startswith('http')]
@@ -61,17 +73,11 @@ def downloadChromeDriver():
     working_drivers = (extract_links(chromedrivers))
     print(working_drivers)
     print(platform.uname().system)
-
-    '''if platform.uname().system == 'Windows':
-        try:
-            browser_search.send_keys(working_drivers[9])
-            time.sleep(2)
-            browser_search.send_keys(Keys.RETURN)
-        except NoSuchElementException:
-            print('No such element')'''
+    if platform.uname().system == 'Windows':
+        create_new_folder(working_drivers[9])
+        time.sleep(2)
 
     browser.quit()
 
 
 downloadChromeDriver()
-create_new_file()

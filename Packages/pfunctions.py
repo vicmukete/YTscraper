@@ -1,13 +1,13 @@
 import pandas as pd
 
-df = pd.read_csv('../YTdata_Cleaned.csv')
+df = pd.read_csv('YTdata_Cleaned.csv')
 dfr = pd.read_csv('../YTdata.csv')
 
 # Most popular and basic methods to explore data
-'''(dfr.info())
-(dfr.head())
-(dfr.tail())
-(dfr.describe())'''
+'''print(dfr.info())
+print(dfr.head())
+print(dfr.tail())
+print(dfr.describe())'''
 
 sub_count0 = dfr['Subscriber Count'].astype(str)
 vid_count0 = dfr['Video Count'].astype(str)
