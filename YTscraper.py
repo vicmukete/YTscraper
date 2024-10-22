@@ -33,15 +33,16 @@ from selenium.webdriver.common.keys import Keys
 
 # from selenium.webdriver import ActionChains
 
-print(platform.uname())
-current_d = os.getcwd().split("\\")
-current_user_d = current_d[2]
 
 # path where the file should be downloaded
 chromedriver_path = r"C:\Users\muket\Desktop\Chrome Drivers\chromedriver.exe"
 
 driver_option = webdriver.ChromeOptions()
 driver_option.add_argument('--incognito')
+driver_option.add_argument('--profile-directory=Default')
+
+# When the program runs there isn't any visual UI to see
+# driver_option.add_argument('--headless')
 
 # create a panda df that reads csv file
 df = pd.read_csv('YTdata.csv')
@@ -198,15 +199,19 @@ def scrape_yt():
     print()
     # Split the collected data
     split_data = profile_data.text.split('\n')
+
     if len(split_data) > 6:
         # remove the first entry of the split data if there are over 6
         # data entries
         profile_data_after = split_data[1:]
         for profile in profile_data_after:
             print(profile)
-        create_csv(split_data, profile_data_after)
-    else:
-        print(profile_data.text)
+        print('-' * 10)
+        create_csv(profile_data_after)
+    elif 'email address' in split_data:
+        split_data = split_data[1:]
+        print(split_data)
+        print(len(split_data))
         print('-' * 10)
         print()
         create_csv(split_data)
