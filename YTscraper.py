@@ -200,18 +200,18 @@ def scrape_yt():
     # Split the collected data
     split_data = profile_data.text.split('\n')
 
-    if len(split_data) > 6:
+    if len(split_data) >= 6:
         # remove the first entry of the split data if there are over 6
         # data entries
         profile_data_after = split_data[1:]
         for profile in profile_data_after:
             print(profile)
         print('-' * 10)
+        print()
         create_csv(profile_data_after)
-    elif 'email address' in split_data:
-        split_data = split_data[1:]
-        print(split_data)
-        print(len(split_data))
+    else:
+        for profile in split_data:
+            print(profile)
         print('-' * 10)
         print()
         create_csv(split_data)

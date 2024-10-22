@@ -103,5 +103,4 @@ print()
 converter.convert_vids()
 print()
 converter.convert_views()
-
 converter.cleaned_csv()
