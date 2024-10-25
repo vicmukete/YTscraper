@@ -31,7 +31,7 @@ download_path = fr"C:\Users\{current_user_d}\Documents\New Drivers".replace('\\'
 chromedriver_path = r"C:\Users\muket\Desktop\Chrome Drivers\chromedriver.exe"
 
 driver_option = webdriver.ChromeOptions()
-driver_option.add_argument('--incognito')
+driver_option.add_argument('--headless')
 
 
 def create_new_folder(url):
@@ -49,6 +49,7 @@ def create_new_folder(url):
         if os.path.exists(download_path):
             os.chmod(download_path, 0o666)
             print("File permission modified successfully")
+            print(response.status_code)
             if response.status_code == 200:
                 with open(download_path, mode='wb') as file:
                     file.write(response.content)
@@ -58,7 +59,7 @@ def create_new_folder(url):
         else:
             print("File not found:", download_path)
     except PermissionError:
-        print("Permission Denied: You do not have the necessary permissions ot change this file.")
+        print("Permission Denied: You do not have the necessary permissions to change this file.")
 
     # check if the request was successful
     '''if response.status_code == 200:
