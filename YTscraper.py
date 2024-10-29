@@ -2,7 +2,6 @@ import time
 import os
 import csv
 import pandas as pd
-import platform
 # from Packages import Conversions
 
 
