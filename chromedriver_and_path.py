@@ -28,6 +28,9 @@ current_user_d = current_d[2]
 # path where the file should be downloaded
 download_path = fr"C:\Users\{current_user_d}\Documents\New Drivers"
 
+# new path that holds the chromedriver
+# new_path = os.path.join(download_path, 'chromedriver-win64.zip\chromedriver-win64')
+
 # File path of chromedriver
 chromedriver_path = r"C:\Users\muket\Desktop\Chrome Drivers\chromedriver.exe"
 
@@ -57,6 +60,7 @@ def create_new_folder(url, filename):
     os.makedirs(download_path, exist_ok=True)
     full_zip_path = os.path.join(download_path, filename)
     response = requests.get(url)
+    print(response.content)
     if response.status_code == 200:
         print(f'File save successfully to {download_path}')
         # the following allows the content to be downloaded in chunks
