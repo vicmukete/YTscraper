@@ -45,8 +45,14 @@ def create_wd():
     return webdriver.Chrome(service=service, options=driver_option)
 
 
+def extract_end_from_link(link):
+    last_element = link.split('/')
+    print(last_element[-1])
+    return last_element[-1]
+
+
 def create_new_folder(url, filename):
-    print(download_path + "\n")
+    print('File saved to this path: ' + download_path + "\n")
     # Create the new folder if it doesn't already exist
     os.makedirs(download_path, exist_ok=True)
     full_zip_path = os.path.join(download_path, filename)
@@ -64,6 +70,13 @@ def create_new_folder(url, filename):
         print(f'Failed to download file. Status Code: {response.status_code}')
 
 
+def system_dependencies(system, link):
+    if platform.uname().system == system:
+        new_filename1 = extract_end_from_link(link)
+        create_new_folder(link, new_filename1)
+        time.sleep(2)
+
+
 # split a particular element in working driver by the /
 # and take the last element of the split. (chromedriver-win64.zip)
 
@@ -79,8 +92,9 @@ print(f"List of Drivers: {working_drivers}\n")
 print(f"Machine System: {platform.uname().system}")
 print(f"Machine Name: {platform.uname().node}\n")
 
-if platform.uname().system == 'Windows':
-    create_new_folder(working_drivers[9])
-    time.sleep(2)
+'''if platform.uname().system == 'Windows':
+    new_filename = extract_end_from_link(working_drivers[9])
+    create_new_folder(working_drivers[9], new_filename)
+    time.sleep(2)'''
 
 browser.quit()
