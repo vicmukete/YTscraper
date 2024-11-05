@@ -1,6 +1,5 @@
 import io
 import platform
-import time
 import os
 import requests
 import zipfile
@@ -62,23 +61,29 @@ def create_new_folder(url, filename):
     response = requests.get(url)
     print(response.content)
     if response.status_code == 200:
-        print(f'File save successfully to {download_path}')
+        print(f'\nFile saved successfully to {download_path}')
         # the following allows the content to be downloaded in chunks
         with open(full_zip_path, 'wb') as zip_file:
             for chunk in response.iter_content(chunk_size=1892):
                 zip_file.write(chunk)
         # extract the zip file
-        with zipfile.ZipFile(io.BytesIO(response.content), 'r') as zip_file:
-            zip_file.extractall()
+        '''with zipfile.ZipFile(io.BytesIO(response.content), 'r') as zip_file:
+            zip_file.extractall()'''
+        with zipfile.ZipFile(full_zip_path, 'r') as zip_file:
+            for file_name in zip_file.namelist():
+                if 'chromedriver' in file_name:
+                    print(file_name)
+                    zip_file.extract(file_name)
+                else:
+                    print('Chromedriver not found in the ZIP file')
+
     else:
         print(f'Failed to download file. Status Code: {response.status_code}')
 
 
-def system_dependencies(system, link):
-    if platform.uname().system == system:
-        new_filename1 = extract_end_from_link(link)
-        create_new_folder(link, new_filename1)
-        time.sleep(2)
+def system_dependencies(driver):
+    new_filename1 = extract_end_from_link(driver).replace('.zip', '')
+    create_new_folder(driver, new_filename1)
 
 
 # split a particular element in working driver by the /
@@ -92,13 +97,24 @@ WebDriverWait(browser, 3).until(
 chrome_link = browser.find_element(By.XPATH, '//*[@id="stable"]').text
 chromedrivers = chrome_link.split()
 working_drivers = (extract_links(chromedrivers))
-print(f"List of Drivers: {working_drivers}\n")
+machine_system = platform.uname().system
 print(f"Machine System: {platform.uname().system}")
 print(f"Machine Name: {platform.uname().node}\n")
+print("List of Drivers: ")
 
-'''if platform.uname().system == 'Windows':
-    new_filename = extract_end_from_link(working_drivers[9])
-    create_new_folder(working_drivers[9], new_filename)
-    time.sleep(2)'''
+for index, value in enumerate(working_drivers):
+    print(index, value)
+
+print()
+# new_filename1 = extract_end_from_link(working_drivers[9]).replace('.zip', '')
+# print(os.path.join(download_path, new_filename1))
+
 
 browser.quit()
+
+if machine_system == 'Darwin':
+    system_dependencies(working_drivers[6])
+if machine_system == 'Windows':
+    system_dependencies(working_drivers[9])
+if machine_system == 'Linux':
+    system_dependencies(working_drivers[5])
