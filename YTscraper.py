@@ -39,6 +39,7 @@ chromedriver_path = r"C:\Users\muket\Desktop\Chrome Drivers\chromedriver.exe"
 driver_option = webdriver.ChromeOptions()
 driver_option.add_argument('--incognito')
 driver_option.add_argument('--profile-directory=Default')
+driver_option.add_argument('start-maximized')
 
 # When the program runs there isn't any visual UI to see
 # driver_option.add_argument('--headless')

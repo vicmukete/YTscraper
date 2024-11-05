@@ -57,6 +57,8 @@ class Conversions:
     # ------------
     print()
 
+# still have to code for the exception that an account
+# has more than 100,000,000 subscribers
     def convert_subs(self):
         filtered_sub = []
         sub_count = self.dataframe['Subscriber Count']
@@ -96,6 +98,7 @@ class Conversions:
 # Instantiate and process the df
 converter = Conversions(dfr)
 
+# to visualize
 converter.convert_subs()
 print()
 converter.convert_date()

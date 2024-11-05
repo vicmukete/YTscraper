@@ -7,7 +7,6 @@ import stat
 
 # provides the main interface for controlling web browsers
 from selenium import webdriver
-# from selenium.common.exceptions import NoSuchElementException
 # used to manage the lifecycle of browser driver executable, useful
 # when configuring and starting the ChromeDriver service
 from selenium.webdriver.chrome.service import Service
@@ -30,8 +29,9 @@ download_path = fr"C:\Users\{current_user_d}\Documents\New Drivers"
 # new path that holds the chromedriver
 # new_path = os.path.join(download_path, 'chromedriver-win64.zip\chromedriver-win64')
 
-# File path of chromedriver
+# initial file path of chromedriver
 chromedriver_path = r"C:\Users\muket\Desktop\Chrome Drivers\chromedriver.exe"
+
 
 driver_option = webdriver.ChromeOptions()
 driver_option.add_argument('--headless')
@@ -52,20 +52,18 @@ def create_wd():
 # Extracts desired content from zip file links
 def extract_end_from_link(link):
     last_element = link.split('/')
-    print(last_element[-1])
+    print(f"You're now downloading this file: {last_element[-1]}")
     return last_element[-1]
 
 
 def create_new_folder(url, filename):
     # ensure file path, download path, and zip path
-    print('File saved to this path: ' + download_path + "\n")
     # Create the new folder if it doesn't already exist
     os.makedirs(download_path, exist_ok=True)
     full_zip_path = os.path.join(download_path, filename)
     response = requests.get(url)
-    print(response.content)
     if response.status_code == 200:
-        print(f'\nFile saved successfully to {download_path}\n')
+        print(f'File saved successfully to - {full_zip_path}\n')
         # the following allows the content to be downloaded in chunks
         with open(full_zip_path, 'wb') as zip_file:
             for chunk in response.iter_content(chunk_size=1892):
@@ -76,22 +74,26 @@ def create_new_folder(url, filename):
         with zipfile.ZipFile(full_zip_path, 'r') as zip_file:
             for file_name in zip_file.namelist():
                 if 'chromedriver' in file_name:
-                    print(file_name)
-                    extracted_path = zip_file.extract(file_name)
-                    # supposed to give me the right permissions to make the file executable
-                    os.chmod(extracted_path, stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
+                    if 'LICENSE' not in file_name and 'THIRD_PARTY_NOTICES' not in file_name:
+                        extracted_path = zip_file.extract(file_name.replace('\\', "\\"))
+                        # will give the right permissions if the os is not windows
+                        if os.name != 'nt':
+                            os.chmod(extracted_path, stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
                 else:
                     print('Chromedriver not found in the ZIP file')
     else:
         print(f'Failed to download file. Status Code: {response.status_code}')
 
 
+# final function to download the chromedriver depending on os
 def system_dependencies(driver):
     new_filename1 = extract_end_from_link(driver).replace('.zip', '')
     create_new_folder(driver, new_filename1)
 
 
 # access link to download chromedrivers
+# move the main script to the top of the file
+# move extract_links above main script
 browser = create_wd()
 browser.get('https://googlechromelabs.github.io/chrome-for-testing/#stable')
 WebDriverWait(browser, 3).until(
@@ -107,13 +109,11 @@ print(f"Machine System: {platform.uname().system}")
 print(f"Machine Name: {platform.uname().node}\n")
 print("List of Drivers: ")
 
+# Print the list of drivers and their indexes
 for index, value in enumerate(working_drivers):
     print(index, value)
 
 print()
-# new_filename1 = extract_end_from_link(working_drivers[9]).replace('.zip', '')
-# print(os.path.join(download_path, new_filename1))
-
 
 browser.quit()
 
