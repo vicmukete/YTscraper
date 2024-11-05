@@ -1,8 +1,8 @@
-import io
 import platform
 import os
 import requests
 import zipfile
+import stat
 # import pyuac
 
 # provides the main interface for controlling web browsers
@@ -47,6 +47,9 @@ def create_wd():
     return webdriver.Chrome(service=service, options=driver_option)
 
 
+# split a particular element in working driver by the /
+# and take the last element of the split. (chromedriver-win64.zip)
+# Extracts desired content from zip file links
 def extract_end_from_link(link):
     last_element = link.split('/')
     print(last_element[-1])
@@ -54,6 +57,7 @@ def extract_end_from_link(link):
 
 
 def create_new_folder(url, filename):
+    # ensure file path, download path, and zip path
     print('File saved to this path: ' + download_path + "\n")
     # Create the new folder if it doesn't already exist
     os.makedirs(download_path, exist_ok=True)
@@ -61,7 +65,7 @@ def create_new_folder(url, filename):
     response = requests.get(url)
     print(response.content)
     if response.status_code == 200:
-        print(f'\nFile saved successfully to {download_path}')
+        print(f'\nFile saved successfully to {download_path}\n')
         # the following allows the content to be downloaded in chunks
         with open(full_zip_path, 'wb') as zip_file:
             for chunk in response.iter_content(chunk_size=1892):
@@ -73,10 +77,11 @@ def create_new_folder(url, filename):
             for file_name in zip_file.namelist():
                 if 'chromedriver' in file_name:
                     print(file_name)
-                    zip_file.extract(file_name)
+                    extracted_path = zip_file.extract(file_name)
+                    # supposed to give me the right permissions to make the file executable
+                    os.chmod(extracted_path, stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
                 else:
                     print('Chromedriver not found in the ZIP file')
-
     else:
         print(f'Failed to download file. Status Code: {response.status_code}')
 
@@ -86,9 +91,7 @@ def system_dependencies(driver):
     create_new_folder(driver, new_filename1)
 
 
-# split a particular element in working driver by the /
-# and take the last element of the split. (chromedriver-win64.zip)
-
+# access link to download chromedrivers
 browser = create_wd()
 browser.get('https://googlechromelabs.github.io/chrome-for-testing/#stable')
 WebDriverWait(browser, 3).until(
@@ -98,6 +101,8 @@ chrome_link = browser.find_element(By.XPATH, '//*[@id="stable"]').text
 chromedrivers = chrome_link.split()
 working_drivers = (extract_links(chromedrivers))
 machine_system = platform.uname().system
+
+# Print computer information
 print(f"Machine System: {platform.uname().system}")
 print(f"Machine Name: {platform.uname().node}\n")
 print("List of Drivers: ")
@@ -112,6 +117,8 @@ print()
 
 browser.quit()
 
+# Checks computer os and downloads chromedriver depending
+# on os
 if machine_system == 'Darwin':
     system_dependencies(working_drivers[6])
 if machine_system == 'Windows':
