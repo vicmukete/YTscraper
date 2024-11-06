@@ -69,13 +69,16 @@ def create_new_folder(url, filename):
             for chunk in response.iter_content(chunk_size=1892):
                 zip_file.write(chunk)
         # extract the zip file
-        '''with zipfile.ZipFile(io.BytesIO(response.content), 'r') as zip_file:
-            zip_file.extractall()'''
-        with zipfile.ZipFile(full_zip_path, 'r') as zip_file:
-            for file_name in zip_file.namelist():
+        # the function extracts the wrong thing
+        # fixing the file path fixes the function
+        with (zipfile.ZipFile(full_zip_path, 'r') as zip_ref):
+            for file_name in zip_ref.namelist():
                 if 'chromedriver' in file_name:
                     if 'LICENSE' not in file_name and 'THIRD_PARTY_NOTICES' not in file_name:
-                        extracted_path = zip_file.extract(file_name.replace('\\', "\\"))
+                        # file_name = file_name.replace('chromedriver-win64/', '')
+                        print(file_name)
+                        extracted_path = zip_ref.extract(file_name, download_path)
+                        print(extracted_path)
                         # will give the right permissions if the os is not windows
                         if os.name != 'nt':
                             os.chmod(extracted_path, stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
@@ -87,8 +90,8 @@ def create_new_folder(url, filename):
 
 # final function to download the chromedriver depending on os
 def system_dependencies(driver):
-    new_filename1 = extract_end_from_link(driver).replace('.zip', '')
-    create_new_folder(driver, new_filename1)
+    # new_filename1 = extract_end_from_link(driver).replace('.zip', '')
+    create_new_folder(driver, 'chromedriver.exe')
 
 
 # access link to download chromedrivers
