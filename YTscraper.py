@@ -2,7 +2,11 @@ import time
 import os
 import csv
 import pandas as pd
-# from Packages import Conversions
+from chromedriver_and_path import create_new_folder
+from chromedriver_and_path import system_dependencies
+from chromedriver_and_path import extract_links
+from chromedriver_and_path import check_os
+
 
 
 # import platform
@@ -57,16 +61,7 @@ def create_wd():
 
 
 def downloadChromeDriver():
-    """while True:
-        if platform.uname().system == 'Windows':
-            browser = create_wd()
-            browser.get('https://googlechromelabs.github.io/chrome-for-testing/#stable')
-            WebDriverWait(browser, 3).until(
-                EC.presence_of_all_elements_located((By.XPATH, '//*[@id="stable"]'))
-            )
-            chrome_link = browser.find_element(By.XPATH, '//*[@id="stable"]')
-            chrome_link.doubleClick()
-            browser.get('https://www.google.com/')"""
+
 
 
 def ask_db():

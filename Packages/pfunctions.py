@@ -1,6 +1,6 @@
 import pandas as pd
 
-df = pd.read_csv('YTdata_Cleaned.csv')
+dataframe = pd.read_csv('YTdata_Cleaned.csv')
 dfr = pd.read_csv('../YTdata.csv')
 
 # Most popular and basic methods to explore data

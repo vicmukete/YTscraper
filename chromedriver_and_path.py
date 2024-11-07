@@ -32,7 +32,6 @@ download_path = fr"C:\Users\{current_user_d}\Documents\New Drivers"
 # initial file path of chromedriver
 chromedriver_path = r"C:\Users\muket\Desktop\Chrome Drivers\chromedriver.exe"
 
-
 driver_option = webdriver.ChromeOptions()
 driver_option.add_argument('--headless')
 
@@ -120,11 +119,13 @@ print()
 
 browser.quit()
 
+
 # Checks computer os and downloads chromedriver depending
 # on os
-if machine_system == 'Darwin':
-    system_dependencies(working_drivers[6])
-if machine_system == 'Windows':
-    system_dependencies(working_drivers[9])
-if machine_system == 'Linux':
-    system_dependencies(working_drivers[5])
+def check_os():
+    if machine_system == 'Darwin':
+        system_dependencies(working_drivers[6])
+    if machine_system == 'Windows':
+        system_dependencies(working_drivers[9])
+    if machine_system == 'Linux':
+        system_dependencies(working_drivers[5])
