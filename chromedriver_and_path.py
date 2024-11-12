@@ -7,12 +7,12 @@ import stat
 
 # provides the main interface for controlling web browsers
 from selenium import webdriver
-# used to manage the lifecycle of browser driver executable, useful
+# used to manage the lifecycle of search driver executable, useful
 # when configuring and starting the ChromeDriver service
 from selenium.webdriver.chrome.service import Service
 # Provides predefined methods to locate elements on a webpage
 from selenium.webdriver.common.by import By
-# Has a set of common conditions that are used when automation browser interactions
+# Has a set of common conditions that are used when automation search interactions
 from selenium.webdriver.support import expected_conditions as EC
 # Used to wait for certain conditions to be met bf proceeding
 from selenium.webdriver.support.ui import WebDriverWait
@@ -29,8 +29,10 @@ download_path = fr"C:\Users\{current_user_d}\Documents\New Drivers"
 # new path that holds the chromedriver
 # new_path = os.path.join(download_path, 'chromedriver-win64.zip\chromedriver-win64')
 
-# initial file path of chromedriver
+# initial file path for chromedriver
 chromedriver_path = r"C:\Users\muket\Desktop\Chrome Drivers\chromedriver.exe"
+new_full_path = os.path.join(download_path, 'chromedriver.exe')
+print(new_full_path)
 
 driver_option = webdriver.ChromeOptions()
 driver_option.add_argument('--headless')
@@ -41,25 +43,21 @@ def extract_links(chromedriver):
     return links
 
 
-def create_wd():
-    service = Service(chromedriver_path)
+def create_wd1(driver_path):
+    service = Service(driver_path)
     return webdriver.Chrome(service=service, options=driver_option)
 
 
 # split a particular element in working driver by the /
 # and take the last element of the split. (chromedriver-win64.zip)
 # Extracts desired content from zip file links
-def extract_end_from_link(link):
-    last_element = link.split('/')
-    print(f"You're now downloading this file: {last_element[-1]}")
-    return last_element[-1]
 
 
-def create_new_folder(url, filename):
+def system_dependencies(url):
     # ensure file path, download path, and zip path
     # Create the new folder if it doesn't already exist
     os.makedirs(download_path, exist_ok=True)
-    full_zip_path = os.path.join(download_path, filename)
+    full_zip_path = os.path.join(download_path, 'chromedriver.exe')
     response = requests.get(url)
     if response.status_code == 200:
         print(f'File saved successfully to - {full_zip_path}\n')
@@ -75,9 +73,7 @@ def create_new_folder(url, filename):
                 if 'chromedriver' in file_name:
                     if 'LICENSE' not in file_name and 'THIRD_PARTY_NOTICES' not in file_name:
                         # file_name = file_name.replace('chromedriver-win64/', '')
-                        print(file_name)
                         extracted_path = zip_ref.extract(file_name, download_path)
-                        print(extracted_path)
                         # will give the right permissions if the os is not windows
                         if os.name != 'nt':
                             os.chmod(extracted_path, stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
@@ -87,21 +83,15 @@ def create_new_folder(url, filename):
         print(f'Failed to download file. Status Code: {response.status_code}')
 
 
-# final function to download the chromedriver depending on os
-def system_dependencies(driver):
-    # new_filename1 = extract_end_from_link(driver).replace('.zip', '')
-    create_new_folder(driver, 'chromedriver.exe')
-
-
 # access link to download chromedrivers
 # move the main script to the top of the file
 # move extract_links above main script
-browser = create_wd()
-browser.get('https://googlechromelabs.github.io/chrome-for-testing/#stable')
-WebDriverWait(browser, 3).until(
+search = create_wd1(chromedriver_path)
+search.get('https://googlechromelabs.github.io/chrome-for-testing/#stable')
+WebDriverWait(search, 3).until(
     EC.presence_of_all_elements_located((By.XPATH, '//*[@id="stable"]'))
 )
-chrome_link = browser.find_element(By.XPATH, '//*[@id="stable"]').text
+chrome_link = search.find_element(By.XPATH, '//*[@id="stable"]').text
 chromedrivers = chrome_link.split()
 working_drivers = (extract_links(chromedrivers))
 machine_system = platform.uname().system
@@ -109,15 +99,15 @@ machine_system = platform.uname().system
 # Print computer information
 print(f"Machine System: {platform.uname().system}")
 print(f"Machine Name: {platform.uname().node}\n")
-print("List of Drivers: ")
+print("List of Possible Drivers: ")
 
-# Print the list of drivers and their indexes
+# Print the list of drivers and eir indexes
 for index, value in enumerate(working_drivers):
     print(index, value)
 
 print()
 
-browser.quit()
+search.quit()
 
 
 # Checks computer os and downloads chromedriver depending
@@ -129,3 +119,6 @@ def check_os():
         system_dependencies(working_drivers[9])
     if machine_system == 'Linux':
         system_dependencies(working_drivers[5])
+
+
+check_os()

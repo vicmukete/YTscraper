@@ -2,12 +2,9 @@ import time
 import os
 import csv
 import pandas as pd
-from chromedriver_and_path import create_new_folder
-from chromedriver_and_path import system_dependencies
-from chromedriver_and_path import extract_links
-from chromedriver_and_path import check_os
 
-
+from chromedriver_and_path import *
+# from chromedriver_and_path import check_os
 
 # import platform
 
@@ -20,7 +17,7 @@ from selenium.webdriver.chrome.service import Service
 
 # an exception thrown when a command does not complete within a specified time
 from selenium.common.exceptions import TimeoutException, ElementNotInteractableException, \
-    ElementClickInterceptedException, NoSuchElementException
+    ElementClickInterceptedException, NoSuchElementException, WebDriverException
 
 # Provides predefined methods to locate elements on a webpage
 from selenium.webdriver.common.by import By
@@ -60,8 +57,30 @@ def create_wd():
     return webdriver.Chrome(service=service, options=driver_option)
 
 
-def downloadChromeDriver():
+# this will reference the new driver downloaded
+# as well as the new driver path
+def create_new_wd():
+    service = Service()
+    return webdriver.Chrome(service=service, options=driver_option)
 
+
+# fix the driver path
+# figure out the correct order of events
+# do I have to break down system deps?
+
+def downloadChromeDriver():
+    # browser won't work unless chromedriver is already established
+    # can't download chromedriver, unless chromedriver is already established
+    browser = create_wd1(new_full_path)
+    browser.get('https://googlechromelabs.github.io/chrome-for-testing/#stable')
+    WebDriverWait(browser, 3).until(
+        EC.presence_of_all_elements_located((By.XPATH, '//*[@id="stable"]'))
+    )
+    # Print computer information
+    print(f"Machine System: {platform.uname().system}")
+    print(f"Machine Name: {platform.uname().node}\n")
+    print("List of Possible Drivers: ")
+    check_os()
 
 
 def ask_db():
@@ -148,11 +167,13 @@ def scrape_yt():
     except TimeoutException:
         print('Timeout, waiting for search box to load')
         browser.quit()
+    except WebDriverException:
+        downloadChromeDriver()
     except (ElementNotInteractableException, ElementClickInterceptedException):
         print('Error, interacting with search box')
         browser.quit()
 
-    time.sleep(2)
+    time.sleep(1)
 
     try:
         # Another point to wait for specified XPATH before extracting
@@ -220,7 +241,7 @@ date_joined = df['Date Joined'].astype(str)
 
 # Dataset conversions
 
-downloadChromeDriver()
+# downloadChromeDriver()
 scrape_yt()
 run_again()
 ask_db()
